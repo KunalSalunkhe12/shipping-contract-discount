@@ -71,7 +71,7 @@ export default function ShippingDiscountPrediction() {
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      const response = await fetch("/api/discout", {
+      const response = await fetch("/api/discount", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
