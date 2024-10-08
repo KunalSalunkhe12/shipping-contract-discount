@@ -71,28 +71,21 @@ export default function ShippingDiscountPrediction() {
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      const reqData = {
-        service_type: formData.serviceType,
-        actual_weight_amount: formData.packageWeight,
-        dim_length: formData.length,
-        dim_width: formData.width,
-        dim_height: formData.height,
-        tracking_id_charge_description_1: formData.trackingCharge1,
-        tracking_id_charge_description_3: formData.trackingCharge2,
-        tracking_id_charge_description_4: formData.trackingCharge3,
-        distance: formData.distance,
-      };
-      const response = await fetch("http://54.85.32.221/predict", {
+      const response = await fetch("/api/discout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reqData),
+        body: JSON.stringify(formData),
       });
+      if (!response.ok) {
+        throw new Error("API request failed");
+      }
       const data = await response.json();
       setResult(data);
     } catch (error) {
       console.error(error);
+      // Handle the error appropriately
     } finally {
       setIsLoading(false);
     }
